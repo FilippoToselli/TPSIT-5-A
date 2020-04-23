@@ -20,6 +20,12 @@ def check_password(hashed_password, user_password):
     return hashed_password == user_password
 
 @app.route('/', methods=['GET', 'POST'])
+def loginSignup():
+    error = None
+    return render_template('loginSignup.html', error=error)
+        
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
@@ -31,6 +37,20 @@ def login():
         else:
             return redirect(url_for('secret'))
     return render_template('login.html', error=error)
+
+def add(username, password):
+    with sqlite3.connect("C:\\Users\\filip\\Desktop\\tpsit\\5quinta\\Python\\Flask\\BotRegistrazioneSito\\registerPage\\static\\db.db") as con:
+        cur = con.cursor()
+        cur.execute(f'INSERT INTO Users (USERNAME, PASSWORD) VALUES("{username}", "{password}");')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        add(username, password)
+        return redirect(url_for('secret'))
+    return render_template('signup.html')
 
 @app.route('/secret')
 def secret():

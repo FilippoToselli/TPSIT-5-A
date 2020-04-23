@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 def validate(username, password):
     completion = False
-    with sqlite3.connect('static/db.db') as con:
+    with sqlite3.connect("C:\\Users\\filip\\Desktop\\tpsit\\5quinta\\Python\\Flask\\BotRegistrazioneSito\\registerPage\\static\\db.db") as con:
             cur = con.cursor()
             cur.execute("SELECT * FROM Users")
             rows = cur.fetchall()
@@ -17,7 +17,7 @@ def validate(username, password):
     return completion
 
 def add(username, password):
-    with sqlite3.connect('static/db.db') as con:
+    with sqlite3.connect("C:\\Users\\filip\\Desktop\\tpsit\\5quinta\\Python\\Flask\\BotRegistrazioneSito\\registerPage\\static\\db.db") as con:
         cur = con.cursor()
         cur.execute(f'INSERT INTO Users (USERNAME, PASSWORD) VALUES("{username}", "{password}");')
 
